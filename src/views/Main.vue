@@ -1,31 +1,37 @@
 <template>
-  <main>
-    <header>
-      <img id="banner" :src="banner" alt="banner">
-    </header>
-    <span id="items">
-      <img id="rightwing" :src="rightwing" alt="wing">
-      <img id="leftwing" :src="leftwing" alt="wing">
-      <span id="letter">
-        <a href="#"><img id="heart" :src="heart" alt="heart"></a>
-        <img id="envelope" :src="envelop" alt="letter">
+  <div class=" start-page row justify-content-center">
+    <div class="col-md-6 col-sm-12">
+      <header>
+        <!-- https://storage.googleapis.com/ngongbabyandcoder.appspot.com/Love.png -->
+        <img id="banner" class="w-100" src="https://storage.googleapis.com/ngongbabyandcoder.appspot.com/banner.png"
+          alt="banner">
+      </header>
+      <span id="items" class="d-flexx">
+        <img id="leftwing" src="https://storage.googleapis.com/ngongbabyandcoder.appspot.com/leftwing.png" alt="wing">
+        <span id="letter" class="d-flex align-items-center justify-content-center" @click="test()">
+          <img id="heart" src="https://storage.googleapis.com/ngongbabyandcoder.appspot.com/heart.png" alt="heart">
+          <img id="envelope" src="https://storage.googleapis.com/ngongbabyandcoder.appspot.com/envelop.png" alt="letter">
+        </span>
+        <img id="rightwing" src="https://storage.googleapis.com/ngongbabyandcoder.appspot.com/rightwing.png" alt="wing">
       </span>
-    </span>
-  </main>
+    </div>
+  </div>
 </template>
 
 <script setup lang="ts">
-import banner from "@/assets/images/banner.png"
-import rightwing from "@/assets/images/rightwing.png"
-import leftwing from "@/assets/images/leftwing.png"
-import heart from "@/assets/images/heart.png"
-import envelop from "@/assets/images/envelop.png"
+import router from '@/router';
+
+const test = () => {
+  router.push({
+    name: 'letter',
+  })
+}
 </script>
 
 <style>
-body {
+.start-page {
   background: mistyrose;
-
+  height: 100vh;
 }
 
 #banner {
@@ -43,10 +49,20 @@ body {
     "lw en rw";
 }
 
+#leftwing {
+  grid-area: lw;
+  width: 100%;
+  direction: rtl;
+  padding: 0 10px 20px 10px;
+  animation: wingTopFlap1 0.5s infinite;
+  /* transform: rotate(-12deg) rotate3d(0, 0, 0, 10deg); */
+}
+
 #rightwing {
-  max-width: 80%;
-  /* animation: flap1 1s infinite; */
   grid-area: rw;
+  width: 100%;
+  padding: 0 10px 20px 10px;
+  animation: wingTopFlap2 1s infinite;
 }
 
 @keyframes flap1 {
@@ -59,12 +75,28 @@ body {
   }
 }
 
-#leftwing {
-  max-width: 80%;
-  grid-area: lw;
-  padding-left: 20%;
-  padding-top: 2%;
-  /* animation: flap2 1s infinite; */
+@keyframes wingTopFlap1 {
+
+  0%,
+  100% {
+    transform: rotate(2deg) rotate3d(0, 0, 0, 10deg);
+  }
+
+  50% {
+    transform: rotate(2deg) rotate3d(0, 1, 0, 10deg);
+  }
+}
+
+@keyframes wingTopFlap2 {
+
+  0%,
+  100% {
+    transform: rotate(2deg) rotate3d(0, 0, 0, 10deg);
+  }
+
+  50% {
+    transform: rotate(2deg) rotate3d(0, 1, 0, 10deg);
+  }
 }
 
 @keyframes flap2 {
@@ -75,23 +107,27 @@ body {
   50% {
     transform: rotate(-5deg) translate(0, 15px);
   }
+
+  75% {
+    transform: rotate(-10deg) translate(0, 15px);
+  }
 }
 
 
 #letter {
   padding-top: 10%;
   grid-area: en;
+  position: relative;
+  z-index: 99;
+  cursor: pointer;
 }
 
 #heart {
-  max-width: 10%;
   position: absolute;
-  z-index: 1;
-  padding-left: 13.5%;
-  padding-top: 8%;
+  max-width: 60%;
+  width: 60%;
+  z-index: 100;
   animation: heart 1s infinite;
-
-
 }
 
 @keyframes heart {
